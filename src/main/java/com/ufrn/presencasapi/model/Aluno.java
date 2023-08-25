@@ -1,10 +1,14 @@
 package com.ufrn.presencasapi.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "tb_aluno")
 public class Aluno implements Serializable {
     @Id
@@ -13,9 +17,4 @@ public class Aluno implements Serializable {
     private Long id;
     @Column(name = "nome_aluno")
     private String nome;
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
 }

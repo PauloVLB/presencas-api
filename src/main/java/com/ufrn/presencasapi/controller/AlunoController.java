@@ -4,6 +4,7 @@ import com.ufrn.presencasapi.dto.AlunoDTO;
 import com.ufrn.presencasapi.model.Aluno;
 import com.ufrn.presencasapi.service.AlunoService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("aluno")
+@RequiredArgsConstructor
 public class AlunoController {
     @Autowired
-    private AlunoService service;
+    private final AlunoService service;
 
     @PostMapping
     public ResponseEntity<Aluno> save(@RequestBody @Valid AlunoDTO alunoDto) {
