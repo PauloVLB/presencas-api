@@ -1,17 +1,16 @@
 package com.ufrn.presencasapi.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
 @Entity
 @Table(name = "tb_monitoria")
@@ -33,9 +32,26 @@ public class Monitoria {
     @Column(name = "sala")
     private String sala;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "monitoria_aluno",
                joinColumns = @JoinColumn(name = "monitoria_id"),
                inverseJoinColumns = @JoinColumn(name = "aluno_id"))
-    Set<Aluno> alunos;
+    Set<Aluno> alunos = new HashSet<>();
+
+    public void addAluno(Aluno aluno) {
+        this.alunos.add(aluno);
+        aluno.getMonitorias().add(this);
+    }
+
+    public void removeAluno(Long alunoId) {
+        Aluno alunoRemove = 
+                this.alunos.stream()
+                           .filter(aluno -> aluno.getId() == alunoId)
+                           .findFirst()
+                           .orElse(null);
+        if(alunoRemove != null) {
+            this.alunos.remove(alunoRemove);
+            alunoRemove.getMonitorias().remove(this);
+        }
+    }
 }

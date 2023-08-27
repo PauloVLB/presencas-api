@@ -1,18 +1,19 @@
 package com.ufrn.presencasapi.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
 @Table(name = "tb_aluno")
 public class Aluno implements Serializable {
@@ -27,6 +28,7 @@ public class Aluno implements Serializable {
     @Column(name = "turma")
     private String turma;
 
-    @ManyToMany(mappedBy = "alunos", fetch = FetchType.EAGER)
-    Set<Monitoria> monitorias;
+    @ManyToMany(mappedBy = "alunos", fetch = FetchType.LAZY)
+    @JsonIgnore
+    Set<Monitoria> monitorias = new HashSet<>();
 }

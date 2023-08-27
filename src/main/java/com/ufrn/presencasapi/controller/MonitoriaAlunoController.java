@@ -16,13 +16,13 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("presencas")
 public class MonitoriaAlunoController {
     private final MonitoriaService monitoriaService;
     private final AlunoService alunoService;
-    @PostMapping
-    public ResponseEntity<Monitoria> criarPresenca(@RequestBody @Valid PresencaDTO presencaDTO) {
-        Long monitoriaId = presencaDTO.monitoriaId();
+    
+    @PostMapping("/monitoria/{monitoriaId}/aluno")
+    public ResponseEntity<Monitoria> criarPresenca(@PathVariable Long monitoriaId, 
+                                                   @Valid @RequestBody PresencaDTO presencaDTO) {
         Long alunoId = presencaDTO.alunoId();
 
         Optional<Monitoria> monitoriaOptional = monitoriaService.findById(monitoriaId);
@@ -40,7 +40,7 @@ public class MonitoriaAlunoController {
         Monitoria monitoria = monitoriaOptional.get();
         Aluno aluno = alunoOptional.get();
 
-        monitoria.getAlunos().add(aluno);
+        monitoria.addAluno(aluno);
 
         Monitoria monitoriaSave = monitoriaService.save(monitoria);
 
@@ -48,5 +48,31 @@ public class MonitoriaAlunoController {
 
         return ResponseEntity.ok(monitoriaSave);
     }
+
+    @DeleteMapping("/monitoria/{monitoriaId}/aluno/{alunoId}")
+    public ResponseEntity<Boolean> retirarPresenca(@PathVariable Long monitoriaId, 
+                                                   @PathVariable Long alunoId) {
+        Optional<Monitoria> monitoriaOptional = monitoriaService.findById(monitoriaId);
+        
+        if(monitoriaOptional.isEmpty()) {
+            throw new NotFoundException("Não foi possível encontrar a monitoria de id " + monitoriaId + ".");
+        }
+
+        Optional<Aluno> alunoOptional = alunoService.findById(alunoId);
+
+        if(alunoOptional.isEmpty()) {
+            throw new NotFoundException("Não foi possível encontrar o aluno de id " + alunoId + ".");
+        }
+
+        Monitoria monitoria = monitoriaOptional.get();
+        
+        monitoria.removeAluno(alunoId);
+
+        Monitoria monitoriaSave = monitoriaService.save(monitoria);
+
+        if(monitoriaSave == null) throw new BadRequestException();
+        
+        return ResponseEntity.ok().build();
+    }   
 
 }
