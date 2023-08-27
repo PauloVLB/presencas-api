@@ -3,8 +3,6 @@ package com.ufrn.presencasapi.service;
 import com.ufrn.presencasapi.model.Monitoria;
 import com.ufrn.presencasapi.repository.MonitoriaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
