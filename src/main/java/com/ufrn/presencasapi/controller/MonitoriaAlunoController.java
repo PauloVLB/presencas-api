@@ -2,12 +2,10 @@ package com.ufrn.presencasapi.controller;
 
 import com.ufrn.presencasapi.model.Aluno;
 import com.ufrn.presencasapi.model.Monitoria;
-import com.ufrn.presencasapi.model.dto.PresencaDTO;
 import com.ufrn.presencasapi.service.AlunoService;
 import com.ufrn.presencasapi.service.MonitoriaService;
 import com.ufrn.utils.exception.BadRequestException;
 import com.ufrn.utils.exception.NotFoundException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +18,9 @@ public class MonitoriaAlunoController {
     private final MonitoriaService monitoriaService;
     private final AlunoService alunoService;
     
-    @PostMapping("/monitoria/{monitoriaId}/aluno")
+    @PostMapping("/monitoria/{monitoriaId}/aluno/{alunoId}")
     public ResponseEntity<Monitoria> criarPresenca(@PathVariable Long monitoriaId, 
-                                                   @Valid @RequestBody PresencaDTO presencaDTO) {
-        Long alunoId = presencaDTO.alunoId();
-
+                                                   @PathVariable Long alunoId) {
         Optional<Monitoria> monitoriaOptional = monitoriaService.findById(monitoriaId);
 
         if(monitoriaOptional.isEmpty()) {

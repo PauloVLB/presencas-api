@@ -40,7 +40,6 @@ public class Monitoria {
 
     public void addAluno(Aluno aluno) {
         this.alunos.add(aluno);
-        aluno.getMonitorias().add(this);
     }
 
     public void removeAluno(Long alunoId) {
