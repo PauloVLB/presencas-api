@@ -1,4 +1,4 @@
-package com.ufrn.presencasapi.dto;
+package com.ufrn.presencasapi.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

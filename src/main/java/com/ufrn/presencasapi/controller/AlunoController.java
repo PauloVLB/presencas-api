@@ -1,6 +1,6 @@
 package com.ufrn.presencasapi.controller;
 
-import com.ufrn.presencasapi.dto.AlunoDTO;
+import com.ufrn.presencasapi.model.dto.AlunoDTO;
 import com.ufrn.presencasapi.model.Aluno;
 import com.ufrn.presencasapi.service.AlunoService;
 import com.ufrn.utils.exception.BadRequestException;
@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,6 @@ import java.util.Optional;
 @RequestMapping("aluno")
 @RequiredArgsConstructor
 public class AlunoController {
-    @Autowired
     private final AlunoService service;
 
     @PostMapping
@@ -63,7 +61,7 @@ public class AlunoController {
         return ResponseEntity.ok(alunoToUpdate);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Aluno> delete(@PathVariable Long id) {
+    public ResponseEntity<Boolean> delete(@PathVariable Long id) {
         Optional<Aluno> alunoToDelete = service.findById(id);
 
         if(alunoToDelete.isEmpty()) {
@@ -72,6 +70,6 @@ public class AlunoController {
 
         service.deleteById(id);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 }
