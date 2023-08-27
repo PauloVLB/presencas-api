@@ -17,4 +17,6 @@ public class Aluno implements Serializable {
     private Long id;
     @Column(name = "nome_aluno")
     private String nome;
+    @Column(name = "turma")
+    private String turma;
 }
