@@ -17,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("aluno")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AlunoController {
     private final AlunoService service;
 

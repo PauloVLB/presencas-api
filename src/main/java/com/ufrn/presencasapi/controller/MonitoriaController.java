@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("monitoria")
 public class MonitoriaController {
     private final MonitoriaService service;

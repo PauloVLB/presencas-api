@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class MonitoriaAlunoController {
     private final MonitoriaService monitoriaService;
     private final AlunoService alunoService;
