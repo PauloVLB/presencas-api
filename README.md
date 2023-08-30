@@ -9,7 +9,7 @@
 
 ## Sobre a API
 
-A API tem como objetivo disponibilizar recursos para uma aplicação de manutenção de presenças em encontros de monitorias. Para isso, matém Monitorias e Alunos e seus relacionamentos.
+A API tem como objetivo disponibilizar recursos para uma aplicação de manutenção de presenças em encontros de monitorias. Para isso, mantém Monitorias e Alunos e seus relacionamentos.
 
 ## Funcionalidades/Rotas
 
